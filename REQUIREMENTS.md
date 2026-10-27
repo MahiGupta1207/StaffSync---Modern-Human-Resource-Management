@@ -15,7 +15,8 @@ It provides Role-Based Access Control (RBAC) across three primary roles:
 - [x] Secure JWT-based authentication with 7-day expiration and automatic Bearer token injection.
 - [x] Password hashing using `bcryptjs` with salt rounds and secure password comparison method.
 - [x] Server-side role enforcement middleware (`protect`, `authorize`).
-- [x] Login rate limiting (10 attempts per 15 minutes per IP) via `express-rate-limit`.
+- [x] Login & registration rate limiting (10 attempts per 15 minutes per IP) via `express-rate-limit`.
+- [x] Self-service Employee Sign Up (`/register`) with automated Employee Code provisioning, Department selection, initial Leave Quota allocation, and instant session start.
 - [x] Password change API endpoint with old password verification.
 - [x] Secure CLI bootstrap script (`setupAdmin.js`) to provision the initial HR Administrator without hardcoded credentials.
 - [x] Dedicated PrivateRoute frontend route guard with role-based redirects.

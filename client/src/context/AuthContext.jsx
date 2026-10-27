@@ -45,6 +45,18 @@ export const AuthProvider = ({ children }) => {
     return userData;
   }, []);
 
+  const register = useCallback(async (formData) => {
+    setError(null);
+    const res = await authService.register(formData);
+    const { token, user: userData } = res.data;
+    if (token && userData) {
+      localStorage.setItem('staffsync_token', token);
+      localStorage.setItem('staffsync_user', JSON.stringify(userData));
+      setUser(userData);
+    }
+    return res.data;
+  }, []);
+
   const logout = useCallback(async () => {
     try { await authService.logout(); } catch { /* ignore */ }
     localStorage.removeItem('staffsync_token');
@@ -61,7 +73,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, logout, refreshUser, setError }}>
+    <AuthContext.Provider value={{ user, loading, error, login, register, logout, refreshUser, setError }}>
       {children}
     </AuthContext.Provider>
   );

@@ -296,6 +296,37 @@ const runTests = async () => {
     assert(presentToday === 1, `Calculated actual present today: ${presentToday}`);
     assert(approvedLeaves === 1, `Calculated actual approved leaves: ${approvedLeaves}`);
 
+    // 12. Self-Service Employee Registration
+    const { register } = require('../controllers/authController');
+    const regReq = {
+      body: {
+        fullName: 'Aarav Patel',
+        email: 'aarav.patel@staffsync.corp',
+        password: 'Password@1234',
+        department: itDept._id.toString(),
+        designation: devDesig._id.toString()
+      },
+      ip: '127.0.0.1'
+    };
+    let regStatusCode = 200;
+    let regData = {};
+    const regRes = {
+      status(code) { regStatusCode = code; return this; },
+      json(data) { regData = data; return this; }
+    };
+    await register(regReq, regRes, (err) => { if (err) throw err; });
+
+    assert(regStatusCode === 201 && regData.success, 'New employee self-service registration succeeded');
+    assert(regData.user && regData.user.role === 'EMPLOYEE', 'Registered user account is assigned EMPLOYEE role');
+    assert(regData.token && typeof regData.token === 'string', 'JWT authentication token issued upon registration');
+
+    const regEmpInDb = await Employee.findOne({ email: 'aarav.patel@staffsync.corp' });
+    assert(regEmpInDb && regEmpInDb.firstName === 'Aarav' && regEmpInDb.lastName === 'Patel', 'Employee master record linked and names parsed correctly');
+    assert(regEmpInDb && regEmpInDb.employeeCode && regEmpInDb.employeeCode.startsWith('EMP-'), `Employee code auto-generated: ${regEmpInDb?.employeeCode}`);
+
+    const regBal = await LeaveBalance.findOne({ employee: regEmpInDb?._id });
+    assert(regBal && regBal.balances?.ANNUAL?.total === 18, 'Standard annual leave balance initialized for registered employee');
+
     console.log('\n====================================================');
     console.log(` Test Summary: ${passed} Passed, ${failed} Failed`);
     console.log('====================================================\n');

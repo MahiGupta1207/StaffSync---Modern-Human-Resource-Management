@@ -1,10 +1,12 @@
 import API from './api';
 
 export const authService = {
-  login:          (data) => API.post('/auth/login', data),
-  getMe:          ()     => API.get('/auth/me'),
-  logout:         ()     => API.post('/auth/logout'),
-  changePassword: (data) => API.put('/auth/change-password', data),
+  login:                 (data) => API.post('/auth/login', data),
+  register:              (data) => API.post('/auth/register', data),
+  getMe:                 ()     => API.get('/auth/me'),
+  logout:                ()     => API.post('/auth/logout'),
+  changePassword:        (data) => API.put('/auth/change-password', data),
+  getPublicDepartments: ()     => API.get('/auth/departments'),
 };
 
 export const employeeService = {

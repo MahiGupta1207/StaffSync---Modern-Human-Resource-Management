@@ -189,6 +189,8 @@ The system is pre-configured with real user and employee profiles across key dep
 
 ### Authentication (`/api/auth`)
 * `POST /api/auth/login`: Authenticate with work email and password (rate limited).
+* `POST /api/auth/register`: Self-service employee registration with auto-generated employee code, leave quota, and JWT session.
+* `GET /api/auth/departments`: Public list of active departments & designations for registration dropdowns.
 * `GET /api/auth/me`: Get current authenticated user profile and permissions.
 * `PUT /api/auth/change-password`: Update authenticated user password.
 * `POST /api/auth/logout`: Log out and invalidate session.

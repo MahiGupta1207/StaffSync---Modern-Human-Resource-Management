@@ -6,6 +6,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 
 // Pages
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import DashboardRouter from './pages/dashboards/DashboardRouter';
 import EmployeesPage from './pages/employees/EmployeesPage';
 import DepartmentsPage from './pages/departments/DepartmentsPage';
@@ -60,6 +61,16 @@ const AppRoutes = () => {
         element={
           <PublicRoute>
             <LoginPage />
+          </PublicRoute>
+        }
+      />
+
+      {/* Public Register Route */}
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <RegisterPage />
           </PublicRoute>
         }
       />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, AlertCircle, LogIn, Zap, Shield, Users, User } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Eye, EyeOff, AlertCircle, LogIn, Zap, Shield, Users, User, UserPlus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getErrorMsg } from '../utils/helpers';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -358,6 +358,21 @@ const LoginPage = () => {
               }
             </button>
           </form>
+
+          {/* Sign Up Link */}
+          <div style={{
+            textAlign: 'center',
+            marginTop: 20,
+            paddingTop: 16,
+            borderTop: '1px solid var(--ss-border)',
+            fontSize: 13,
+            color: 'var(--ss-text-muted)'
+          }}>
+            New to StaffSync?{' '}
+            <Link to="/register" style={{ color: 'var(--ss-primary)', fontWeight: 600, textDecoration: 'none' }}>
+              Create an Employee Account &rarr;
+            </Link>
+          </div>
         </div>
       </div>
     </div>
